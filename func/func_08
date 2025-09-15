@@ -1,0 +1,5 @@
+def say_hello(text):
+    num = len(text)
+    return f"{text} (길이: {num})"
+
+print(say_hello("안녕하세요"))

@@ -1,0 +1,24 @@
+# 랜덤 라이브러리 가져오기
+import random
+
+# 랜덤 라이브러리 중 sample 함수 호출
+# 0~99 범위에서 중복되지 않은 랜덤한 5개 추출
+random_numbers = random.sample(range(100),5)
+print(random_numbers)
+
+# 0~10(10 포함) 중 랜덤으로 정수 하나 추출
+random_int = random.randint(0,10)
+print(random_int)
+
+# 50이 있는지
+print(50 in random_numbers)
+print(random_numbers)
+
+print('-'*50)
+# 삭제
+del random_numbers[0] # 맨 앞 날리기 --> del은 그냥 삭제; a = del random_numbers[0] (X)
+print(random_numbers)
+
+a = random_numbers.pop(0) # 맨 앞 날리기 --> pop()을 통해 삭제한 data를 조회가능; a = random_numbers.pop(0) (O)
+print(random_numbers)
+print(a)
