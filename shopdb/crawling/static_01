@@ -29,16 +29,18 @@ str_table_rows = '#contents > div.content > fieldset > fieldset > div.tableType0
 store_rows = soup.select(str_table_rows)
 # print(store_rows[0])
 
-for id, r in enumerate(store_rows):
-    first_store = store_rows[0]
-    print(id+1) # 몇 개 나오는지 순서확인
-    # td : <tr> 안에 있는 개별 열
-    print(r.select('td')[0].text.strip()) #지역
-    print(r.select('td')[1].text.strip()) #매장명
-    print(r.select('td')[2].text.strip()) #현황
-    print(r.select('td')[3].text.strip()) #주소 
-    print(r.select('td')[5].text.strip()) #전화번호
-    print('*'*100)
+store_lists = []
+for r in store_rows:
+    store_lists.append(
+        (
+            r.select('td')[0].text.strip(), # 지역
+            r.select('td')[1].text.strip(), # 매장명
+            r.select('td')[2].text.strip(), # 현황
+            r.select('td')[3].text.strip(), # 주소 
+            r.select('td')[5].text.strip()  # 전화번호
+        )
+    )
+
 
 # Database 접속
 # Insert 쿼리문을 이용해 수집ㅎ나 데이터를 DB에 저장
