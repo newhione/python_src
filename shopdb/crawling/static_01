@@ -13,7 +13,7 @@ from_data = {
 }
 
 response = requests.post(url, data=from_data)
-print(response.text[:500])
+# print(response.text[:500])
 
 # pip install beautifulsoup4
 from bs4 import BeautifulSoup
@@ -40,18 +40,7 @@ for r in store_rows:
             r.select('td')[5].text.strip()  # 전화번호
         )
     )
-
-
-# Database 접속
-# Insert 쿼리문을 이용해 수집ㅎ나 데이터를 DB에 저장
-# 1. DB 연결
-def get_connection():
-    return pymysql.connect(
-        host = os.getenv('DB_HOST'),
-        user = os.getenv('DB_USER'),
-        password = os.getenv('DB_PASSWORD'),
-        database=os.getenv('DB_NAME')
-    )
+print(store_lists)
 
 
 

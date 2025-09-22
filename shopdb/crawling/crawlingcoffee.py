@@ -1,0 +1,46 @@
+# pip install requests
+import requests
+
+def get_data(page_num):
+    # 데이터를 요청할 주소
+    url = 'https://www.hollys.co.kr/store/korea/korStore2.do'
+
+    # 서버에 보낼 데이터(1페이지를 보여달라는 의미로)
+    from_data = {
+        'pageNO' : page_num,
+        'sido' : '',
+        'gugun' : '',
+        'store' : ''
+    }
+
+    response = requests.post(url, data=from_data)
+    # print(response.text[:500])
+
+    # pip install beautifulsoup4
+    from bs4 import BeautifulSoup
+
+    # response에 있는 문자열로 된 데이터를 Beautifulsoup 객체로 변환
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # 원하는 정보 추출
+    # #contents > div.content > fieldset > fieldset > div.tableType01 > table > tbody > tr (#->id, .->클래스)
+    str_table_rows = '#contents > div.content > fieldset > fieldset > div.tableType01 > table > tbody > tr'
+
+    # soup.select('tbody > tr') #tbody가 하나일 때는 이렇게 해도 되나, 여러 개면 가장 먼저 만나는 tbody
+    store_rows = soup.select(str_table_rows)
+    # print(store_rows[0])
+
+    store_lists = []
+    for r in store_rows:
+        store_lists.append(
+            (
+                r.select('td')[0].text.strip(), # 지역
+                r.select('td')[1].text.strip(), # 매장명
+                r.select('td')[2].text.strip(), # 현황
+                r.select('td')[3].text.strip(), # 주소 
+                r.select('td')[5].text.strip()  # 전화번호
+            )
+        )
+    return store_lists
+
+# print(store_lists)
